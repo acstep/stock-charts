@@ -1,0 +1,21 @@
+# 私密認證（保險起見全擋）
+.credentials.js
+.env
+.env.*
+*.token
+*password*
+*secret*
+*api_key*
+
+# Puppeteer / Node
+node_modules/
+package.json
+package-lock.json
+*.log
+.DS_Store
+
+# OS
+Thumbs.db
+
+# 執行腳本（不上傳到 repo）
+scripts/
