@@ -18,12 +18,41 @@ li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
 li a{color:#00d4ff;text-decoration:none}
 li a:hover{color:#00ff88}
 .foot{color:#555;font-size:0.85em;margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05)}
+
+/* 站台導覽 */
+.portal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+@media (max-width:600px){.portal{grid-template-columns:1fr}}
+.portal a{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:10px;text-decoration:none;color:#e0e4f0;transition:all 0.2s;text-align:center}
+.portal a:hover{transform:translateY(-2px);border-color:rgba(0,212,255,0.5)}
+.portal a.active{border-color:rgba(0,212,255,0.5);background:linear-gradient(135deg,rgba(0,212,255,0.08),rgba(168,85,247,0.05))}
+.portal .ico{font-size:1.5rem;margin-bottom:4px}
+.portal .ttl{font-weight:700;font-size:0.9rem}
+.portal a.active .ttl{color:#00d4ff}
+.portal .desc{font-size:0.7rem;color:#7880a0;margin-top:2px}
 </style>
 </head>
 <body>
 <div class="wrap">
 <h1>📊 Stock Charts</h1>
 <p class="sub">每日 AI 基建股 K 線圖庫 · 自動產生</p>
+
+<nav class="portal">
+    <a href="https://acstep.github.io/stock-reports/" target="_blank">
+        <div class="ico">📑</div>
+        <div class="ttl">研究報告</div>
+        <div class="desc">每日選股分析</div>
+    </a>
+    <a href="index.html" class="active">
+        <div class="ico">📊</div>
+        <div class="ttl">K 線圖庫</div>
+        <div class="desc">120 個交易日</div>
+    </a>
+    <a href="https://acstep.github.io/TECH/" target="_blank">
+        <div class="ico">📰</div>
+        <div class="ttl">AI 新聞</div>
+        <div class="desc">TechCrunch 中文</div>
+    </a>
+</nav>
 
 <div class="card">
     <h2>⭐ 最新圖庫</h2>
