@@ -1,0 +1,64 @@
+name: Daily K-line Charts
+
+# 每天台北時間 15:00（UTC 07:00）跑，週一到週五（美股交易日）
+# 可手動觸發（Actions 頁面 → Run workflow）
+on:
+  schedule:
+    - cron: '0 7 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: '指定日期 YYYY-MM-DD（補資料用，留空用今天）'
+        required: false
+        default: ''
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          # push 回去需要 write 權限
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run kline generator
+        env:
+          DATE_INPUT: ${{ github.event.inputs.date }}
+        run: |
+          if [ -n "$DATE_INPUT" ]; then
+            echo "補資料模式：$DATE_INPUT"
+            python kline_generator.py --date "$DATE_INPUT"
+          else
+            python kline_generator.py
+          fi
+
+      - name: Build gallery HTML
+        run: python build_gallery.py
+
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add png/ charts/ index.html
+          # 只有真的有變更才 commit
+          if git diff --cached --quiet; then
+            echo "沒新東西要 commit"
+          else
+            DATE=$(date -u +%Y-%m-%d)
+            git commit -m "Daily K-line charts ${DATE}"
+            git push
+          fi
