@@ -42,6 +42,7 @@ NAME_MAP = {
     'NRG': 'NRG Energy', 'BE': 'Bloom Energy', 'NEE': 'NextEra',
     'GLW': 'Corning', 'CIEN': 'Ciena', 'NET': 'Cloudflare',
     'CRWD': 'CrowdStrike', 'PANW': 'Palo Alto', 'PLTR': 'Palantir',
+    'P': 'Everpure',  # 原 PSTG (Pure Storage) 2026 改名
 }
 
 

@@ -3,6 +3,7 @@
 build_gallery.py — 從 png/ 資料夾產生 K 線圖庫 HTML
 跟舊 build_gallery.js 一樣的視覺風格（深色主題、2 欄網格）
 """
+import json
 import os
 import re
 import sys
@@ -31,6 +32,7 @@ NAME_MAP = {
     'NRG': 'NRG Energy', 'BE': 'Bloom Energy', 'NEE': 'NextEra',
     'GLW': 'Corning', 'CIEN': 'Ciena', 'NET': 'Cloudflare',
     'CRWD': 'CrowdStrike', 'PANW': 'Palo Alto', 'PLTR': 'Palantir',
+    'P': 'Everpure',  # 原 PSTG (Pure Storage) 2026 改名
 }
 
 
@@ -166,12 +168,24 @@ li a:hover{{color:#00ff88}}
 </html>'''
 
 
+def load_symbols():
+    sym_file = os.path.join(ROOT, 'symbols.json')
+    with open(sym_file) as f:
+        return json.load(f)
+
+
 def main():
     os.makedirs(CHARTS_DIR, exist_ok=True)
 
-    # 掃當天 PNG
-    pngs = [f for f in os.listdir(PNG_DIR) if f.endswith(f'-{DATE_STR}.png')]
-    print(f'[build_gallery] {DATE_STR}  ·  {len(pngs)} PNGs')
+    # 過濾 symbols.json：避免「之前抓過但已從 symbols 移除」的孤兒 PNG 被撿進去
+    active_symbols = set(load_symbols())
+    pngs = [f for f in os.listdir(PNG_DIR)
+            if f.endswith(f'-{DATE_STR}.png')
+            and f.replace(f'-{DATE_STR}.png', '') in active_symbols]
+    orphans = [f for f in os.listdir(PNG_DIR)
+               if f.endswith(f'-{DATE_STR}.png')
+               and f.replace(f'-{DATE_STR}.png', '') not in active_symbols]
+    print(f'[build_gallery] {DATE_STR}  ·  {len(pngs)} PNGs ({len(orphans)} 孤兒略過)')
 
     items = []
     for f in sorted(pngs):

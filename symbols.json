@@ -1,6 +1,8 @@
 [
-  "NVDA", "AMD", "AVGO", "INTC", "QCOM", "MRVL", "ARM", "TSM", "AMAT", "KLAC",
-  "LRCX", "AMKR", "ASX", "TER", "MU", "WDC", "STX", "NTAP", "SMCI", "DELL",
-  "ANET", "CSCO", "ORCL", "GOOGL", "MSFT", "AMZN", "META", "VST", "CEG", "ETN",
-  "VRT", "NRG", "BE", "NEE", "GLW", "CIEN", "NET", "CRWD", "PANW", "PLTR"
+  "NVDA", "AMD", "AVGO", "INTC", "QCOM", "MRVL", "ARM", "TSM", "AMAT", "LRCX",
+  "AMKR", "ASX", "MU", "WDC", "STX", "NTAP", "SMCI", "DELL", "ANET", "CSCO",
+  "ORCL", "GOOGL", "MSFT", "AMZN", "META", "VST", "CEG", "ETN", "VRT", "NRG",
+  "NEE", "GLW", "CIEN", "NET", "CRWD", "PANW", "PLTR", "AAON", "AES", "ASML",
+  "CRM", "GEV", "HPQ", "LUMN", "OKTA", "P", "PNRG", "S", "SNOW", "SPXC",
+  "TLN", "ZS"
 ]
