@@ -12,6 +12,11 @@ on:
         required: false
         default: ''
 
+# GITHUB_TOKEN 預設在這個 repo 是 read-only
+# 要 commit & push 回去需要明確給 write 權限
+permissions:
+  contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
