@@ -1,0 +1,379 @@
+{
+  "date": "2026-06-28",
+  "generated_at": "2026-06-28T20:25:40.904456+08:00",
+  "source": "manual-parse-from-stock-reports-6-28",
+  "note": "示範 JSON，從 stock-reports/2026-06-28.html parse。新聞欄位待 cron 補。",
+  "tickers": {
+    "MSFT": {
+      "name": "Microsoft Corporation",
+      "score": "9.5",
+      "pe_reported": null,
+      "recommendation": "OpenAI 母公司 + Azure AI 雲端龍頭。距 52W 低 6.8% 為大型股最低，今日 +5.7% 成交量 4.07x 顯示機構低位承接。\n\n微軟 Azure 在 AI 工作負載市占率持續擴張，Copilot 企業版滲透率突破 30%。OpenAI 投資已轉化為 GPT-5/6 等產品競爭力。週五成交量爆 4.07 倍，機構資金在大跌後明顯抄底。P/E 22 對比 GOOGL/META 屬合理偏低。目標價 $445 對應 19x FY27 EPS。",
+      "news": []
+    },
+    "META": {
+      "name": "Meta Platforms, Inc.",
+      "score": "9.0",
+      "pe_reported": null,
+      "recommendation": "AI 廣告變現之王 + Llama 開源霸主。距 52W 低僅 5.8% 為大型 AI 股最低，P/E 18 為大型股最低，估值最便宜。\n\nMeta 的 AI 廣告投放系統 ROAS 提升 20%+，Llama 開源模型已成為業界標準。Reality Labs 雖虧損但 Vision Pro 競爭中領先。資本支出高峰已過，FCF 將快速回升。Hyperscale AI 算力 Capex 仍維持 $40B+。P/E 18 對比其他大型 AI 股幾乎打了七折。",
+      "news": []
+    },
+    "AMZN": {
+      "name": "Amazon.com, Inc.",
+      "score": "9.0",
+      "pe_reported": null,
+      "recommendation": "AWS + Trainium 自研 AI 晶片 + Anthropic 投資。今日 +2.5% 站穩 20 日均線，成交量 4.55x 為 AI 雲端三巨頭之最。\n\nAWS 重新加速 AI 工作負載市占，Trainium2/3 性價比超 NVIDIA H100。Anthropic Claude 整合到 Bedrock 形成完整 AI 堆疊。零售 + AWS + 廣告三引擎齊發。週五成交爆 4.55 倍，機構正在 AWS AI 復甦敘事低位佈局。",
+      "news": []
+    },
+    "PLTR": {
+      "name": "Palantir Technologies Inc.",
+      "score": "9.0",
+      "pe_reported": null,
+      "recommendation": "AI 軍工/政府雙引擎，AIP 平台商業化加速。距 52W 低僅 6.2%，今日 +5.3% 反彈，機構低檔佈局訊號強烈。\n\nPalantir Foundry 與 AIP 平台已成為企業 AI Agent 部署的標竿，與微軟 Azure 深度整合拿下軍工 AI 大單。最新季度政府客戶增長 45%，商業客戶 ARR 加速。股價距離 52W 高點仍有 45% 空間，估值消化中。距 52W 低 6.2% 是大型 AI 軟體股中最低。",
+      "news": []
+    },
+    "NVDA": {
+      "name": "NVIDIA Corporation",
+      "score": "9.5",
+      "pe_reported": null,
+      "recommendation": "AI GPU 絕對龍頭，Blackwell Ultra + Rubin 平台週期。今日 -1.6% 溫和修正提供良好進場點，P/E 35 在 AI 晶片中相對合理。\n\nNVIDIA 在 AI 訓練晶片市占率仍達 90%，Blackwell 出貨放量、Rubin 平台 2026 投產。軟體生態（CUDNN、TensorRT、NIM）形成深護城河。AI Capex 超級週期仍在延續，至少持續到 2027。客戶端 ASIC 自研雖分食部分推理市場，但訓練端無人能撼動。",
+      "news": []
+    },
+    "GOOGL": {
+      "name": "Alphabet Inc.",
+      "score": "8.5",
+      "pe_reported": null,
+      "recommendation": "Gemini 2.0 + TPU 自研晶片 + YouTube AI 變現三引擎。今日 -1.8% 但成交量 3.07x，機構在逢低承接。\n\nGoogle 在 AI 基礎模型（Gemini）、自研晶片（TPU v6/v7）、搜尋變現三方面都有結構性優勢。YouTube AI 推薦 + Shorts 變現持續加速。雲端業務 Gemini 整合後回升至 30%+ 增速。P/E 對比其他大型 AI 股偏便宜。週五成交 3.07 倍是積極訊號。",
+      "news": []
+    },
+    "AVGO": {
+      "name": "Broadcom Inc.",
+      "score": "8.5",
+      "pe_reported": null,
+      "recommendation": "客製化 AI ASIC + 高速 SerDes 雙引擎，Google TPU v7、Meta MTIA 主要供應商。今日 -3.7% 從壓力區回落提供優質進場。\n\nBroadcom 在 hyperscaler ASIC 市場佔有率超過 70%，每個客製化晶片都是 10+ 億美元大單。高速 SerDes 與光纖收發器在 AI 集群中需求爆發。VMware 整合加速企業 AI 採用，AI 營收佔比已突破 45%。",
+      "news": []
+    },
+    "AMD": {
+      "name": "Advanced Micro Devices, Inc.",
+      "score": "8.0",
+      "pe_reported": null,
+      "recommendation": "MI300X/MI325 AI GPU 加速放量，挑戰 NVIDIA 壟斷。P/E 對比成長性合理，今日 -2.1% 提供加碼機會。\n\nAMD MI300X 在大型語言模型推理上展現性價比優勢，已拿下 Meta、Microsoft、Oracle 等大單。MI325/MI355 系列擴大產品線。ROCm 軟體生態改善加速採用率。Helios 機櫃方案打開 hyperscaler 大門。",
+      "news": []
+    },
+    "CEG": {
+      "name": "Constellation Energy Corporatio",
+      "score": "9.5",
+      "pe_reported": null,
+      "recommendation": "美國最大無碳電力供應商，Meta/微軟核電 PPA 全面簽署。距 52W 低僅 9.8% 為機構低檔佈局訊號。\n\nConstellation 是美國最大核電運營商，剛拿下微軟 Crane Clean Energy Center 835MW 20 年 $16B PPA，又與 Meta 簽署長約。AI 數據中心需要 24/7 無碳基載電力，CEG 無可替代。股息年增 10%+ 提供下檔保護。9.8 GW 已簽 PPA 鎖定未來 5-10 年營收。",
+      "news": []
+    },
+    "VST": {
+      "name": "Vistra Corp.",
+      "score": "9.0",
+      "pe_reported": null,
+      "recommendation": "AI 電力整合者，核電 + 燃氣 + 太陽能組合。Meta 已簽核電 PPA。今日 -2.5% 提供加碼點。\n\nVistra 是全美最大獨立電力組合（IPP），AI 數據中心推升電力需求。剛完成 Energy Harbor 收購轉型至核能，AI 用電紅利最大化。積極買回庫存股回饋股東。P/E 21 對比成長性極便宜。週五回吐 2.5% 提供低接機會。",
+      "news": []
+    },
+    "NRG": {
+      "name": "NRG Energy, Inc.",
+      "score": "8.0",
+      "pe_reported": null,
+      "recommendation": "德州數據中心電力直接受益者。今日 +1.5% 是電力類別中表現最強，距 52W 低 24% 為優質進場點。\n\nNRG 在德州 ERCOT 市場有強勢地位，數據中心負載爆發直接受益。併購整合擴大規模（Direct Energy、Smart Home），AI 用電客戶簽長約。P/E 20 對比 VST/CEG 更便宜，是電力類別中最便宜的選擇。",
+      "news": []
+    },
+    "ETN": {
+      "name": "Eaton Corporation, PLC",
+      "score": "8.0",
+      "pe_reported": null,
+      "recommendation": "AI 電力配電 + 資料中心 UPS 龍頭。今日 -4.1% 提供優質進場點，距 52W 低 29% 有強勁基本面支撐。\n\nEaton 在北美資料中心電力配電系統（PDU、UPS、開關）佔有率第一。AI 數據中心對電力品質要求極高，單一機房電力配電價值是傳統雲端的 3 倍以上。eMobility、Electrical Americas 雙引擎齊發。",
+      "news": []
+    },
+    "GEV": {
+      "name": "GE Vernova Inc.",
+      "score": "8.0",
+      "pe_reported": null,
+      "recommendation": "AI 電力設備龍頭（燃氣渦輪、核電輔助設備）。今日 -3.7% 從高位回落提供進場。\n\nGE Vernova 是 AI 電力基礎建設上游，受惠全球燃氣渦輪訂單積壓創歷史新高。HA 級燃氣渦輪交付期已排到 2030。核電業務透過 SMR 與大型反應爐輔助設備擴張。電網設備業務受 AI 升級需求推升。",
+      "news": []
+    },
+    "OKLO": {
+      "name": "Oklo Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "小型模組化反應爐（SMR）純玩家，AI 數據中心去碳化首選。距 52W 低僅 11.4% 為高 Beta 標的。\n\nOklo 是 Aurora 微型反應爐領導者，與 Switch、Equinix 等大型數據中心運營商簽署意向書。美國核能監管鬆綁後，SMR 商業化加速。雖尚未量產但已有強勁訂單儲備。Beta 高、波動大，適合小倉位佈局。",
+      "news": []
+    },
+    "SMR": {
+      "name": "NuScale Power Corporation",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "NuScale 是 SMR 技術先驅，唯一獲 NRC 認證的 SMR 設計。今日 +0.3% 守住支撐，距 52W 低 14% 為進場點。\n\nNuScale VOYGR 是全球唯一獲得美國核能管理委員會（NRC）設計認證的 SMR。與 Romania、Poland 等國簽署 SMR 部署協議。Romania Doicești 廠 2029 年投運將是首座歐洲 SMR。週五守住支撐，盤整結束有望反彈。",
+      "news": []
+    },
+    "VRT": {
+      "name": "Vertiv Holdings, LLC",
+      "score": "9.5",
+      "pe_reported": null,
+      "recommendation": "AI 液冷絕對龍頭，$15B 訂單積壓。今日 -6.6% 大跌提供絕佳進場點，目標 $395。\n\nVertiv 在液冷 CDU、行級空調、UPS 等 AI 資料中心關鍵基礎設備市佔第一。剛上修 2026 營收指引至 $13.25-13.75B，2026 EPS $5.97-6.07。Q4 訂單暴增 252%，毛利率擴張至 25% by 2029。Forward P/E 46 但 EPS 增速 43%，PEG 1.07 仍便宜。週五大跌 6.6% 是獲利了結並非基本面轉差。",
+      "news": []
+    },
+    "SPXC": {
+      "name": "SPX Technologies, Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "AI 散熱解決方案擴張，Heat Transfer 與 Detection 兩大業務。今日 -5.2% 提供進場。\n\nSPX Technologies 透過 Heat Transfer（Genfare 品牌）與 Detection 兩大業務受益 AI 資料中心散熱需求。液冷解決方案在 hyperscaler 中市占提升。週五回吐 5.2% 提供加碼機會。",
+      "news": []
+    },
+    "AAON": {
+      "name": "AAON, Inc.",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "高效能 HVAC 設備商，AI 液冷散熱需求爆發。今日 -4.9% 從高點回落提供進場。\n\nAAON 是高效能 HVAC 設備商，AI 資料中心對冷卻需求大幅提升其產品價值。Semi-custom 解決方案獲大型雲端運營商青睞。週五回吐是獲利了結非基本面轉差。",
+      "news": []
+    },
+    "ANET": {
+      "name": "Arista Networks, Inc.",
+      "score": "8.5",
+      "pe_reported": null,
+      "recommendation": "AI 集群網路交換器龍頭，Ultra Ethernet 聯盟主導者。今日 -4.7% 提供優質進場。\n\nArista Networks 在 hyperscaler AI 集群交換器市占第一，與 NVIDIA Spectrum-X 平台競爭。AI 訓練叢集規模從 10K 卡擴張到 100K+ 卡，推升高速交換器需求。EOS 軟體平台持續擴張，AI Etherlink 產品線獲客戶驗證。",
+      "news": []
+    },
+    "GLW": {
+      "name": "Corning Incorporated",
+      "score": "8.0",
+      "pe_reported": null,
+      "recommendation": "光纖 + AI 玻璃基板雙引擎。今日 -3.0% 從週三大漲 30% 後溫和修正，提供進場機會。\n\nCorning 在 AI 資料中心光纖連接壟斷地位（每股 GPU 需 3-5 條光纖跳線）。玻璃基板為下一代 AI 晶片封裝關鍵材料，2026 量產。光通訊業務年增 30%+。週五回吐 3% 是健康修正。",
+      "news": []
+    },
+    "CIEN": {
+      "name": "Ciena Corporation",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "800G/1.6T 光網路傳輸龍頭，AI 跨數據中心互連受益。今日 -1.1% 成交量 2.53x 顯示機構逢低佈局。\n\nCiena 在 800G/1.6T 光傳輸系統領先，AI 訓練需要跨數據中心傳輸海量數據，光纖傳輸需求爆發。WaveLogic 6 平台獲主要電信運營商和 hyperscaler 採用。週五成交 2.53 倍顯示逢低買盤強勁。",
+      "news": []
+    },
+    "COHR": {
+      "name": "Coherent Corp.",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "磷化銦（InP）雷射 + AI 800G 光模組雙引擎。今日 -6.6% 提供深蹲進場點。\n\nCoherent（II-VI 收購）為 AI 資料中心 800G/1.6T 光模組關鍵供應商，磷化銦雷射技術領先。NVIDIA、AMD、 Broadcom 主要光模組合作夥伴。週五大跌 6.6% 提供優質低接機會。",
+      "news": []
+    },
+    "LITE": {
+      "name": "Lumentum Holdings Inc.",
+      "score": "6.5",
+      "pe_reported": null,
+      "recommendation": "光通訊雷射 + AI 高速互連。今日 -5.2% 從高位大幅修正，估值回到合理區間。\n\nLumentum 在光通訊雷射（EML、可調雷射）市占領先，AI 集群高速光互連核心供應商。3D 感測、工業雷射業務穩定。週五從高點修正 5% 提供低接機會。",
+      "news": []
+    },
+    "CSCO": {
+      "name": "Cisco Systems, Inc.",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "企業網路龍頭 + Hypershield AI 安全平台。今日 -4.4% 提供低接點，P/E 對比成長性極便宜。\n\nCisco 在企業網路交換器、路由器市場仍是龍頭。AI 時代推出 Hypershield 安全平台、Splunk 整合強化企業 AI 安全方案。P/E 對比 ANET/CSCO 大幅折價。週五回吐 4.4% 是健康修正。",
+      "news": []
+    },
+    "MU": {
+      "name": "Micron Technology, Inc.",
+      "score": "9.0",
+      "pe_reported": null,
+      "recommendation": "HBM4 領導者 + NAND 復甦。今日 -6.7% 提供絕佳低檔進場點，P/E 24 對比成長性極便宜。\n\nMicron 在 HBM3e/HBM4 取得 NVIDIA Blackwell/Rubin 認證，是 AI GPU 高頻寬記憶體三大供應商之一。NAND 在 AI 推理儲存需求回升。2026 EPS 預估 $35-40，P/E 24-25 對比成長性極便宜。週五大跌 6.7% 是獲利了結並非基本面轉差。",
+      "news": []
+    },
+    "TSM": {
+      "name": "Taiwan Semiconductor Manufactur",
+      "score": "8.5",
+      "pe_reported": null,
+      "recommendation": "全球 AI 晶片代工龍頭，CoWoS 產能仍是瓶頸。受益 NVIDIA、AMD、Apple、Broadcom 全陣營。今日 -0.6% 表現穩。\n\nTSMC 是所有 AI 晶片設計公司的唯一選擇，CoWoS 先進封裝產能 2026 預計再增 60%。3nm/2nm 製程領先，AI 高效能運算需求無可替代。Arizona 廠放量擴大美國在地生產。週五表現穩健顯示抗跌性。",
+      "news": []
+    },
+    "MRVL": {
+      "name": "Marvell Technology, Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "客製化 AI 晶片 + Data Center 高速互連。今日 -5.2% 從高位回落，距 52W 高點近，提供好買點。\n\nMarvell 在 hyperscaler ASIC（Amazon Trainium2、Google TPU）市占第二，與 Broadcom 形成雙寡頭。光互連 DSP 晶片在 AI 集群中無可替代。AI 營收佔比已突破 45%。",
+      "news": []
+    },
+    "INTC": {
+      "name": "Intel Corporation",
+      "score": "6.5",
+      "pe_reported": null,
+      "recommendation": "Intel Foundry + 18A 製程 + Gaudi AI 加速器。今日 -3.4% 提供低接機會。\n\nIntel 18A 製程 2026 量產將為 NVIDIA、AWS 等代工服務。Gaudi 3 AI 加速器已拿下多家 hyperscaler 訂單。週五回吐 3.4% 屬於半導體族群輪動。",
+      "news": []
+    },
+    "ARM": {
+      "name": "Arm Holdings plc",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "AI 邊緣運算 + Neoverse 雲端 CPU 雙引擎。P/E 偏高但成長性強，今日 -3.9% 提供進場。\n\nARM 架構在 AI 晶片（NVIDIA Grace、Apple M-series、AWS Graviton）市占擴張。AI 工作負載能效優勢明顯，雲端 CPU 與邊緣 AI 雙引擎。Royalty 模式獲利穩健。",
+      "news": []
+    },
+    "AMKR": {
+      "name": "Amkor Technology, Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "CoWoS 先進封裝第二供應商。今日 -8.1% 提供深蹲進場點，受益 NVIDIA HBM4 訂單。\n\nAmkor 在 CoWoS 先進封裝擴產，是 NVIDIA Blackwell/Rubin 主要封裝合作夥伴。TSMC 產能滿載下，Amkor 是關鍵第二供應商。週五大跌 8.1% 提供極佳低接機會。",
+      "news": []
+    },
+    "AMAT": {
+      "name": "Applied Materials, Inc.",
+      "score": "8.0",
+      "pe_reported": null,
+      "recommendation": "AI 製程設備龍頭 + 先進封裝鍍膜設備。今日 -6.2% 提供進場點。\n\nApplied Materials 在 AI 晶片製程設備（沉積、蝕刻、檢測）市占領先。Blackwell 與 Rubin 製程升級推升 EUV 與先進封裝設備需求。週五回吐 6.2% 是健康修正。",
+      "news": []
+    },
+    "LRCX": {
+      "name": "Lam Research Corporation",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "蝕刻設備龍頭，HBM TSV 蝕刻與 GAA 製程需求。今日 -5.7% 提供進場點。\n\nLam Research 在蝕刻設備市占第一，HBM TSV 蝕刻與 GAA 環繞閘極製程需求強勁。AI 高頻寬記憶體堆疊需要先進蝕刻技術。週五回吐 5.7% 提供低接機會。",
+      "news": []
+    },
+    "SMCI": {
+      "name": "Super Micro Computer, Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "AI 伺服器液冷領導者。今日 -3.3% 提供低接機會，財報事件已過最壞情境。\n\nSuper Micro 是 AI 伺服器液冷方案領導者，與 NVIDIA HGX H200/H100 緊密整合。雖然財報延遲風波影響，但產能與訂單基本面未變。週五回吐 3.3% 提供低接機會。",
+      "news": []
+    },
+    "DELL": {
+      "name": "Dell Technologies Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "AI 伺服器 PowerEdge + 企業 AI 工作站。今日 -2.4% 提供進場。\n\nDell PowerEdge XE9680 拿下多家 hyperscaler AI 訓練訂單。AI Factory 方案搭配 NVIDIA Blackwell 推升企業 AI 採用。週五回吐 2.4% 提供低接機會。",
+      "news": []
+    },
+    "HPQ": {
+      "name": "HP Inc.",
+      "score": "6.5",
+      "pe_reported": null,
+      "recommendation": "AI PC + 企業列印雙引擎。今日 -0.2% 抗跌顯示防禦性，P/E 對比成長性便宜。\n\nHP 透過 AI PC 與企業 AI 工作站切入新一波換機潮。雖非純 AI 玩家，但估值便宜、股息穩健。週五表現抗跌顯示防禦性。",
+      "news": []
+    },
+    "SNDK": {
+      "name": "Sandisk Corporation",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "AI 儲存領導者 Evergreen + FlashBlade。今日 +4.5% 是儲存類別中表現最佳，提供動能。\n\nPure Storage 在 AI 高速儲存（FlashBlade//E）市占領先。Q1 營收指引上修、訂單加速。週五 +4.5% 逆勢是極佳動能訊號。",
+      "news": []
+    },
+    "NTAP": {
+      "name": "NetApp, Inc.",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "企業混合雲儲存龍頭，AI 工作負載資料管理受益。今日 -1.4% 提供低接點。\n\nNetApp 在企業混合雲儲存（ONTAP）市占領先。AI 訓練資料集規模爆發推升高速儲存需求。週五回吐 1.4% 提供低接機會。",
+      "news": []
+    },
+    "WDC": {
+      "name": "Western Digital Corporation",
+      "score": "6.5",
+      "pe_reported": null,
+      "recommendation": "HDD + NAND 雙引擎，今日 -13.2% 提供深蹲機會。高 Beta 高風險，僅小倉位。\n\nWestern Digital 在 HDD 與 NAND 雙業務受惠 AI 資料中心海量儲存需求。週五大跌 13.2% 是恐慌性賣壓，風險高但低接機會明顯。AI 訓練資料集爆發推升 HDD 需求（冷資料儲存）。僅適合高風險承受投資人小倉位佈局。",
+      "news": []
+    },
+    "STX": {
+      "name": "Seagate Technology Holdings PLC",
+      "score": "6.5",
+      "pe_reported": null,
+      "recommendation": "Massive Capacity HDD + AI 冷資料儲存。今日 -12.2% 提供深蹲機會。高 Beta 高風險。\n\nSeagate 在大容量 HDD（HAMR 技術）市占第一，AI 訓練資料集爆發推升單一機櫃容量需求。週五大跌 12.2% 屬於過熱後修正。AI Capex 持續推升冷資料儲存需求。僅適合高風險承受投資人小倉位。",
+      "news": []
+    },
+    "CRWD": {
+      "name": "CrowdStrike Holdings, Inc.",
+      "score": "8.5",
+      "pe_reported": null,
+      "recommendation": "AI 資安龍頭，Falcon 平台整合 ML 偵測。今日 +3.3% 從壓力區回升，估值雖貴但成長性最強。\n\nCrowdStrike 是 AI 時代的網路安全作業系統，端點防護佔有率持續擴張。AI 攻擊增長推升企業資安預算，CRWD 的 ARR 增速維持 25%+。併購整合加速，平台化策略奏效。週五 +3.3% 顯示機構低位承接。",
+      "news": []
+    },
+    "PANW": {
+      "name": "Palo Alto Networks, Inc.",
+      "score": "8.5",
+      "pe_reported": null,
+      "recommendation": "資安平台化轉型領頭羊，Prisma AI + Cortex XSIAM 平台擴張。今日 +3.8% 站穩所有均線，距 52W 高點僅 0.7%。\n\nPalo Alto 從防火牆轉型為完整資安平台，AI 驅動的自動化 SOC 解決方案已成為大型企業首選。下一代安全（NGSI）訂閱增速維持 30%+，毛利持續優化。距 52W 高點僅 0.7% 顯示強勢動能。",
+      "news": []
+    },
+    "ZS": {
+      "name": "Zscaler, Inc.",
+      "score": "8.5",
+      "pe_reported": null,
+      "recommendation": "零信任資安 + AI 流量分析。今日 +6.8% 強勢反彈，距 52W 低僅 15.4% 是優質進場點。\n\nZscaler 是 SASE（安全存取服務邊緣）龍頭，AI Agent 普及推升零信任需求。Zero Trust Everywhere 策略推動客戶從單一產品升級到完整平台。FY26 訂閱增速重回 25%+。",
+      "news": []
+    },
+    "FTNT": {
+      "name": "Fortinet, Inc.",
+      "score": "8.0",
+      "pe_reported": null,
+      "recommendation": "FortiGate 防火牆 + AI SecOps。今日 +1% 距 52W 高點僅 0.9%，突破動能強勁。\n\nFortinet 在企業防火牆市占第一，FortiAI 整合生成式 AI 提升 SOC 效率。Secure Networking 統一平台策略奏效，訂閱業務加速。距 52W 高點僅 0.9% 顯示強勢。",
+      "news": []
+    },
+    "S": {
+      "name": "SentinelOne, Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "AI 原生端點防護，Purple AI 平台成長強勁。今日 +6.4% 從低檔強彈，價格親民。\n\nSentinelOne 是純 AI 原生 EDR 廠商，與 CrowdStrike 形成雙雄競爭。Purple AI 平台整合生成式 AI 提升 SOC 效率 10x。客戶擴張速度加快，FY27 有望轉盈。",
+      "news": []
+    },
+    "OKTA": {
+      "name": "Okta, Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "身份驗證 + AI 治理核心，受惠 AI Agent 普及。今日 +4.2% 站穩支撐。\n\nOkta 是企業身份驗證龍頭，AI Agent 數量爆發推升身份治理需求。Workforce Identity Cloud 與 Customer Identity 雙引擎。併購整合後平台化策略奏效，交叉銷售率提升。",
+      "news": []
+    },
+    "SNOW": {
+      "name": "Snowflake Inc.",
+      "score": "9.5",
+      "pe_reported": null,
+      "recommendation": "AI 數據雲端龍頭，Snowflake Cortex AI 平台快速擴張。今日 +9.7% 反應 AI Agent 應用落地加速，成交量 2.48x。\n\nSNOW 為 AI 時代的資料基礎設施，所有企業 AI 應用最終都要在雲端數據平台上運行。Cortex AI 已成為企業 RAG 與 Agent 部署首選平台之一，與 Anthropic 合作導入 Claude 強化企業 AI。FY26 產品營收增速回升至 30%+，AI 功能變現剛啟動。週五 +9.7% 成交量 2.48x 是極佳動能訊號。",
+      "news": []
+    },
+    "DDOG": {
+      "name": "Datadog, Inc.",
+      "score": "8.5",
+      "pe_reported": null,
+      "recommendation": "AI 監控 + LLM 可觀測性龍頭。今日 +8.5% 強勢反彈，AI 工作負載監控需求爆發。\n\nDatadog 推出 LLM 可觀測性產品 Watchdog AI，整合生成式 AI 提升監控效率。AI 工作負載規模爆發推升監控需求。週五 +8.5% 顯示 AI 監控需求加速。",
+      "news": []
+    },
+    "AI": {
+      "name": "C3.ai, Inc.",
+      "score": "6.5",
+      "pe_reported": null,
+      "recommendation": "C3.ai 企業 AI 平台，高 Beta 投機標的。今日 +1.7% 從低檔反彈，距 52W 低僅 16%。\n\nC3.ai 企業 AI 平台轉型升級，與 AWS、Microsoft、Google 雲端深度整合。雖燒錢但客戶增長加速。週五守住支撐顯示下方有買盤。風險高，僅小倉位。",
+      "news": []
+    },
+    "MDB": {
+      "name": "MongoDB, Inc.",
+      "score": "8.0",
+      "pe_reported": null,
+      "recommendation": "MongoDB Atlas + AI 整合。今日 +6.8% 強勢反彈，AI 應用開發需求受益。\n\nMongoDB Atlas 向量搜尋整合 RAG 工作負載，AI 應用開發首選資料庫之一。FY26 業績指引強勁。週五 +6.8% 顯示 AI 應用落地加速。",
+      "news": []
+    },
+    "HON": {
+      "name": "Honeywell International Inc.",
+      "score": "7.5",
+      "pe_reported": null,
+      "recommendation": "工業自動化 + AI 資料中心 HVAC。今日 +0.4% 抗跌，距 52W 低 24% 為優質進場。\n\nHoneywell 在工業自動化、AI 資料中心 HVAC、石化製程控制多領域領先。週五抗跌顯示防禦性。P/E 對比成長性合理。",
+      "news": []
+    },
+    "EMR": {
+      "name": "Emerson Electric Company",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "工業自動化 + AI 過程控制。今日 -1.3% 提供低接，距 52W 低僅 17%。\n\nEmerson Electric 在工業自動化、AI 過程控制市占領先。週五回吐 1.3% 提供低接機會。",
+      "news": []
+    },
+    "TT": {
+      "name": "Trane Technologies plc",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "Trane HVAC + AI 資料中心散熱。今日 -5.1% 提供低接機會。\n\nTrane Technologies 在高效能 HVAC、資料中心冷卻系統市占領先。週五從高位回吐 5% 提供低接機會。",
+      "news": []
+    },
+    "TER": {
+      "name": "Teradyne, Inc.",
+      "score": "7.0",
+      "pe_reported": null,
+      "recommendation": "AI 晶片測試設備龍頭。今日 -7.4% 提供深蹲進場點。\n\nTeradyne 在 AI 晶片（NVIDIA、AMD、Broadcom）測試設備市占第一。週五大跌 7.4% 屬於硬體族群過熱修正。低接機會明顯。",
+      "news": []
+    }
+  }
+}

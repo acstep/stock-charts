@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-kline_generator.py — 從 Yahoo Finance 抓半年日 K + mplfinance 畫圖
+kline_generator.py — 從 Yahoo Finance 抓日 K + mplfinance 畫圖
 GitHub Actions 每天 15:00 台北時間（07:00 UTC）跑一次
 
+預設跑 6mo + 1mo 兩種 period，每檔產兩張 PNG：
+  {SYMBOL}-{date}-6mo.png   半年日 K
+  {SYMBOL}-{date}-1mo.png   一個月日 K（22 個交易日）
+
 Usage:
-  python kline_generator.py            # 跑當天
+  python kline_generator.py            # 跑當天 TPE，6mo + 1mo
   python kline_generator.py --date 2026-06-28   # 跑指定日期（補資料用）
+  python kline_generator.py --period 6mo        # 只跑半年（單張 PNG，相容舊版檔名）
 """
 import argparse
 import json
@@ -78,7 +83,7 @@ def fetch_one(symbol, period='6mo'):
     return df[['Open', 'High', 'Low', 'Close', 'Volume']].dropna()
 
 
-def plot_one(df, symbol, out_path):
+def plot_one(df, symbol, out_path, period_label='6mo'):
     """畫 K 線圖（半年日 K + 成交量），存到 out_path。"""
     name = NAME_MAP.get(symbol, symbol)
 
@@ -94,15 +99,18 @@ def plot_one(df, symbol, out_path):
         rc={'font.size': 10, 'axes.labelsize': 10, 'axes.titlesize': 12},
     )
 
+    title_suffix = '6-Month Daily' if period_label == '6mo' else '1-Month Daily'
+    figsize = (12, 7) if period_label == '6mo' else (10, 6)
+
     fig, axes = mpf.plot(
         df,
         type='candle',
         volume=True,
         style=custom_style,
-        title=f'{symbol}  ·  {name}  ·  6-Month Daily',
+        title=f'{symbol}  ·  {name}  ·  {title_suffix}',
         ylabel='Price (USD)',
         ylabel_lower='Volume',
-        figsize=(12, 7),
+        figsize=figsize,
         returnfig=True,
     )
     fig.savefig(out_path, dpi=100, bbox_inches='tight')
@@ -119,7 +127,8 @@ def plt_close(fig):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--date', help='指定日期 YYYY-MM-DD（預設今天台北時間）')
-    parser.add_argument('--period', default='6mo', help='yfinance period 參數')
+    parser.add_argument('--period', default='6mo,1mo',
+                        help='yfinance period（逗號分隔多個，預設 6mo,1mo）')
     parser.add_argument('--limit', type=int, default=0, help='只跑前 N 檔（測試用）')
     args = parser.parse_args()
 
@@ -128,48 +137,60 @@ def main():
     else:
         date_str = datetime.now(TPE).strftime('%Y-%m-%d')
 
+    periods = [p.strip() for p in args.period.split(',') if p.strip()]
+
     os.makedirs(PNG_DIR, exist_ok=True)
     symbols = load_symbols()
     if args.limit:
         symbols = symbols[:args.limit]
 
-    print(f'[kline_generator] {date_str}  ·  {len(symbols)} symbols  ·  period={args.period}')
+    print(f'[kline_generator] {date_str}  ·  {len(symbols)} symbols  ·  periods={periods}')
 
-    ok, fail, skipped = 0, 0, 0
-    failed_list = []
+    grand_ok, grand_fail, grand_skip = 0, 0, 0
+    grand_failed = []
 
-    for i, sym in enumerate(symbols, 1):
-        out_path = os.path.join(PNG_DIR, f'{sym}-{date_str}.png')
-        if os.path.exists(out_path) and not args.limit:
-            print(f'  [{i:2d}/{len(symbols)}] {sym} 已存在，跳過')
-            skipped += 1
-            continue
+    for period in periods:
+        print(f'\n--- period={period} ---')
+        ok, fail, skipped = 0, 0, 0
+        failed_list = []
 
-        df = fetch_one(sym, period=args.period)
-        if df is None or df.empty:
-            fail += 1
-            failed_list.append(sym)
-            time.sleep(0.5)
-            continue
+        for i, sym in enumerate(symbols, 1):
+            out_path = os.path.join(PNG_DIR, f'{sym}-{date_str}-{period}.png')
+            if os.path.exists(out_path) and not args.limit:
+                print(f'  [{i:2d}/{len(symbols)}] {sym} 已存在，跳過')
+                skipped += 1
+                continue
 
-        try:
-            size = plot_one(df, sym, out_path)
-            print(f'  [{i:2d}/{len(symbols)}] ✓ {sym} ({len(df)} 交易日, {size//1024} KB)')
-            ok += 1
-        except Exception as e:
-            print(f'  [{i:2d}/{len(symbols)}] ✗ {sym}: plot error: {e}', file=sys.stderr)
-            fail += 1
-            failed_list.append(sym)
+            df = fetch_one(sym, period=period)
+            if df is None or df.empty:
+                fail += 1
+                failed_list.append(sym)
+                time.sleep(0.5)
+                continue
 
-        # rate limit 禮貌：每支 sleep 0.3s
-        time.sleep(0.3)
+            try:
+                size = plot_one(df, sym, out_path, period_label=period)
+                print(f'  [{i:2d}/{len(symbols)}] ✓ {sym} ({len(df)} 交易日, {size//1024} KB)')
+                ok += 1
+            except Exception as e:
+                print(f'  [{i:2d}/{len(symbols)}] ✗ {sym}: plot error: {e}', file=sys.stderr)
+                fail += 1
+                failed_list.append(sym)
+
+            # rate limit 禮貌：每支 sleep 0.3s
+            time.sleep(0.3)
+
+        print(f'=== {period}: ✓ {ok}  ·  ✗ {fail}  ·  ⤼ {skipped} 跳過 ===')
+        grand_ok += ok
+        grand_fail += fail
+        grand_skip += skipped
+        grand_failed.extend(failed_list)
 
     print()
-    print(f'=== 結果：✓ {ok}  ·  ✗ {fail}  ·  ⤼ {skipped} 跳過 ===')
-    if failed_list:
-        print(f'失敗清單：{", ".join(failed_list)}')
-        # 不要 exit 1，gallery 還是會用成功的部分建
-    return 0 if fail == 0 else 1
+    print(f'=== 總計：✓ {grand_ok}  ·  ✗ {grand_fail}  ·  ⤼ {grand_skip} 跳過 ===')
+    if grand_failed:
+        print(f'失敗清單：{", ".join(set(grand_failed))}')
+    return 0 if grand_fail == 0 else 1
 
 
 if __name__ == '__main__':
