@@ -124,15 +124,24 @@ def load_symbols():
 def load_recommendations(date_str):
     """抓 recommendations/{date}.json。
 
-    優先順序：
-    1. stock-reports repo raw URL（來自 cron 12:00 生成的）
-    2. fallback: 本地 data/recommendations/{date}.json（示範 / 離線使用）
+    優先順序（本地優先，避免 CDN 緩存問題）：
+    1. 本地 data/recommendations/{date}.json（本地 cron job 剛生成的，最新）
+    2. stock-reports repo raw URL（來自 cron 12:00 生成的）
 
     如果都找不到，回傳 None（build 還是會跑，但 AI 推薦欄位顯示 placeholder）
     """
     import urllib.request
 
-    # 1. stock-reports raw URL
+    # 1. 本地（最新，每次 cron job 都會更新）
+    local_path = os.path.join(DATA_DIR, 'recommendations', f'{date_str}.json')
+    if os.path.exists(local_path):
+        with open(local_path) as f:
+            data = json.load(f)
+            tickers_count = len(data.get('tickers', {}))
+            print(f'  [recs] ✓ from local: {tickers_count} tickers')
+            return data
+
+    # 2. stock-reports raw URL（備用）
     url = f'https://raw.githubusercontent.com/acstep/stock-reports/main/recommendations/{date_str}.json'
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -141,15 +150,8 @@ def load_recommendations(date_str):
             print(f'  [recs] ✓ from stock-reports: {len(data.get("tickers", {}))} tickers')
             return data
     except Exception as e:
-        print(f'  [recs] stock-reports fetch failed ({type(e).__name__}), fallback local', file=sys.stderr)
+        print(f'  [recs] all sources failed ({type(e).__name__})', file=sys.stderr)
 
-    # 2. fallback 本地
-    local_path = os.path.join(DATA_DIR, 'recommendations', f'{date_str}.json')
-    if os.path.exists(local_path):
-        with open(local_path) as f:
-            data = json.load(f)
-            print(f'  [recs] ✓ from local fallback: {len(data.get("tickers", {}))} tickers')
-            return data
     return None
 
 
@@ -224,7 +226,23 @@ def render_card(item):
     eps_ttm_str = f'${eps_ttm:.2f}' if eps_ttm else '—'
     eps_fwd_str = f'${eps_fwd:.2f}' if eps_fwd else '—'
 
-    rec = item.get('recommendation') or '— 等待下次報告更新 —'
+    rec = item.get('recommendation') or ''
+    # 如果 recommendation 太短（不到50字），用 score + 進場/目標/止損 組合
+    if not rec or len(rec.strip()) < 50:
+        score = item.get('score', '')
+        entry = item.get('entry', '')
+        target = item.get('target', '')
+        stop = item.get('stop', '')
+        parts = [f'評分 {score}/10' if score else '']
+        if entry:
+            parts.append(f'進場 {entry}')
+        if target:
+            parts.append(f'目標 {target}')
+        if stop:
+            parts.append(f'止損 {stop}')
+        rec = ' | '.join(p for p in parts if p) or '— 等待下次報告更新 —'
+    else:
+        rec = rec.strip()
 
     news = item.get('news') or []
     news_items = []
