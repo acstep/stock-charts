@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K 線圖庫｜2026-07-18 · AI 基建 52 檔深度版</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans TC",sans-serif;background:#08080f;color:#e0e4f0;line-height:1.65;padding:0}
+.wrap{max-width:1400px;margin:0 auto;padding:24px}
+
+.hero{background:linear-gradient(135deg,#08081a 0%,#1a0a2a 50%,#0a0a1a 100%);border:1px solid rgba(91,127,255,0.25);border-radius:20px;padding:36px 40px;margin-bottom:24px;position:relative;overflow:hidden}
+.hero h1{font-size:30px;color:#fff;margin-bottom:8px;background:linear-gradient(90deg,#00d4ff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{color:#7880a0;font-size:13px;margin-bottom:4px}
+.hero .meta{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.badge{background:rgba(91,127,255,0.12);border:1px solid rgba(91,127,255,0.25);color:#8090d0;border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600}
+.badge.green{background:rgba(36,224,138,0.08);border-color:rgba(36,224,138,0.25);color:#24e08a}
+
+.category-section{margin-bottom:32px}
+.category-title{color:#fff;font-size:1.4em;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.category-count{color:#7880a0;font-size:0.7em;font-weight:400}
+
+.cards-grid{display:flex;flex-direction:column;gap:20px}
+
+.card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;transition:all 0.25s}
+.card:hover{border-color:rgba(0,212,255,0.3);box-shadow:0 4px 24px rgba(0,212,255,0.06)}
+
+.card-header{display:flex;align-items:center;gap:16px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.card-ticker-block{display:flex;align-items:baseline;gap:10px;flex:0 0 auto}
+.card-ticker{color:#00d4ff;font-weight:700;font-size:1.4em;letter-spacing:0.5px}
+.card-name{color:#888;font-size:0.95em}
+.card-price-block{display:flex;align-items:baseline;gap:10px;flex:1}
+.card-price{color:#fff;font-weight:700;font-size:1.15em}
+.card-change{font-size:0.95em}
+.card-category{background:rgba(91,127,255,0.1);border:1px solid rgba(91,127,255,0.2);color:#8090d0;border-radius:14px;padding:3px 12px;font-size:0.8em;font-weight:600;flex:0 0 auto}
+
+.kline-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.kline-cell{background:#0a0a14;border-radius:10px;padding:8px;overflow:hidden}
+.kline-label{color:#7880a0;font-size:0.8em;margin-bottom:6px;text-align:center}
+.kline-img{width:100%;height:auto;display:block;border-radius:6px}
+
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;padding:10px;background:rgba(255,255,255,0.02);border-radius:10px}
+.metric{display:flex;flex-direction:column;align-items:center;gap:4px}
+.metric-key{color:#7880a0;font-size:0.78em}
+.metric-val{color:#fff;font-weight:700;font-size:1.05em}
+
+.rec-block,.news-block{margin-bottom:12px;padding:12px 14px;background:rgba(255,255,255,0.02);border-radius:10px}
+.rec-block{border-left:3px solid #00d4ff}
+.news-block{border-left:3px solid #a855f7}
+.block-title{color:#00d4ff;font-size:0.85em;font-weight:700;margin-bottom:8px}
+.news-block .block-title{color:#a855f7}
+.rec-text{color:#d0d4e0;font-size:0.92em;line-height:1.65;white-space:pre-line}
+.news-list{list-style:none;padding:0;font-size:0.88em;line-height:1.7}
+.news-list li{padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.news-list li:last-child{border-bottom:none}
+.news-list a{color:#00d4ff;text-decoration:none}
+.news-list a:hover{color:#00ff88;text-decoration:underline}
+
+.foot{text-align:center;color:#555;font-size:12px;padding:40px 20px;border-top:1px solid rgba(255,255,255,0.05);margin-top:40px}
+.foot a{color:#00d4ff;text-decoration:none}
+
+@media (max-width:900px){
+    .kline-row{grid-template-columns:1fr}
+    .metrics-row{grid-template-columns:repeat(2,1fr)}
+    .card-header{flex-wrap:wrap}
+    .card-price-block{order:3;width:100%;flex-basis:100%}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero">
+    <h1>📊 K 線圖庫｜2026-07-18</h1>
+    <div class="sub">AI 基礎建設精選 52 檔 · 半年日 K + 一月日 K + P/E + EPS + AI 推薦 + 最新新聞</div>
+    <div class="meta">
+        <span class="badge">每日 15:00 台北時間更新</span>
+        <span class="badge green">52 張深度卡</span>
+        <span class="badge green">✓ AI 推薦已就緒</span>
+    </div>
+</div>
+
+    <section class="category-section">
+        <h2 class="category-title">💾 AI 晶片/GPU <span class="category-count">(8)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">NVDA</span>
+                <span class="card-name">NVIDIA</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$202.81</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.21%</span></span>
+            </div>
+            <div class="card-category">💾 AI 晶片/GPU</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/NVDA-2026-07-18-6mo.png" alt="NVDA 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/NVDA-2026-07-18-1mo.png" alt="NVDA 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">31.7</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">15.8</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$6.39</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$12.83</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">輝達仍是AI基礎設施浪潮的核心受益者，Blackwell GPU需求維持強勁，資料中心營收持續爆發式增長，基本面無實質改變。股價從高點修正後本益比已見合理，機構投資人逢低布局意願升溫。技術面股價已站上21日均線，動能轉正向，短期反彈可期。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47521_Stock%20Picks_1783337985000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Markets soared in first half 2026 with S&P 500 up 9%, AI Broadens Out theme driving tech leadership</span></li>
+    <li><a href="https://finance.yahoo.com/research/reports/47587_Technical%20Analysis_1783941903000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Late-week strength helped indices post positive week as concerns about higher energy prices receded</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">AMD</span>
+                <span class="card-name">AMD</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$495.76</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-1.03%</span></span>
+            </div>
+            <div class="card-category">💾 AI 晶片/GPU</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/AMD-2026-07-18-6mo.png" alt="AMD 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/AMD-2026-07-18-1mo.png" alt="AMD 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">166.9</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">36.8</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$2.97</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$13.46</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">超微半導體MI300X GPU在AI訓練市場取得進展， 市佔率持續提升，資料中心業務成長曲線明確。油價上漲對電子供應鏈衝擊已反映在股價，評價面相對 NVIDIA 折價幅度過大，具備補漲潛力。技術面股價處於相對低檔，風險報酬比有利。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47600_Technical%20Analysis_1784028797000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Another spike in crude oil and higher rates knocked stocks again; memory and storage semiconductors under pressure</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">AVGO</span>
+                <span class="card-name">Broadcom</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$370.82</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.97%</span></span>
+            </div>
+            <div class="card-category">💾 AI 晶片/GPU</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/AVGO-2026-07-18-6mo.png" alt="AVGO 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/AVGO-2026-07-18-1mo.png" alt="AVGO 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">62.1</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">19.1</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$5.97</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$19.42</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">博通AI網路晶片需求暢旺，資料中心相關營收維持高度成長，Alphabet與Meta等大客戶持續擴大委外，長期供應關係穩固。股價在科技股修正中同步回檔，但基本面無虞，本益比已回到合理區間。半導體景氣循環仍在上升段，持有的風險報酬誘人。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47558_Technical%20Analysis_1783595352000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Jump in crude oil and Treasury yields knocked stock market lower; semiconductors rebounding</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">INTC</span>
+                <span class="card-name">Intel</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$95.04</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.00%</span></span>
+            </div>
+            <div class="card-category">💾 AI 晶片/GPU</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/INTC-2026-07-18-6mo.png" alt="INTC 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/INTC-2026-07-18-1mo.png" alt="INTC 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">—</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">58.9</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$-0.60</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$1.61</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">QCOM</span>
+                <span class="card-name">Qualcomm</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$171.78</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+0.65%</span></span>
+            </div>
+            <div class="card-category">💾 AI 晶片/GPU</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/QCOM-2026-07-18-6mo.png" alt="QCOM 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/QCOM-2026-07-18-1mo.png" alt="QCOM 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">18.4</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">15.5</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$9.36</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$11.05</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">MRVL</span>
+                <span class="card-name">Marvell</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$188.68</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+0.20%</span></span>
+            </div>
+            <div class="card-category">💾 AI 晶片/GPU</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/MRVL-2026-07-18-6mo.png" alt="MRVL 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/MRVL-2026-07-18-1mo.png" alt="MRVL 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">64.6</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">30.4</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$2.92</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$6.20</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Marvell在AI加速器與雲端網路市場具有戰略地位，雖短期記憶體供應鏈庫存調整影響營收，但光纖與資料中心互連需求長線看好。股價已從高點大幅修正，評價面具吸引力。收購Celestial AI強化AI光學解決方案，基本面並未崩壞。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47303_Portfolio%20Ideas_1781179068000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Marvell removed from Argus Focus List amid tech sector rotation</span></li>
+    <li><a href="https://finance.yahoo.com/research/reports/3724_Analyst%20Report_1779988477000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Marvell is a fabless provider of high-performance ARM processors, storage controllers, Ethernet switches and WiFi chips</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">ARM</span>
+                <span class="card-name">ARM Holdings</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$267.19</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.98%</span></span>
+            </div>
+            <div class="card-category">💾 AI 晶片/GPU</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/ARM-2026-07-18-6mo.png" alt="ARM 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/ARM-2026-07-18-1mo.png" alt="ARM 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">310.7</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">86.8</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$0.86</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$3.08</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">ARM為當前AI基礎設施革命的核心IP供應商，不論是資料中心CPU還是邊緣AI處理器，ARM架構滲透率持續攀升。雖然記憶體景氣修正波及部分應用，但公司權利金收入穩定且有成長。股價回檔提供中長期布局點，IPO以來修正已深，評價趨於合理。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">TSM</span>
+                <span class="card-name">TSMC</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$398.37</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.77%</span></span>
+            </div>
+            <div class="card-category">💾 AI 晶片/GPU</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/TSM-2026-07-18-6mo.png" alt="TSM 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/TSM-2026-07-18-1mo.png" alt="TSM 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">30.7</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">18.8</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$12.99</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$21.24</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">📦 AI 先進封裝/CoWoS <span class="category-count">(4)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">AMAT</span>
+                <span class="card-name">Applied Materials</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$529.66</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-5.57%</span></span>
+            </div>
+            <div class="card-category">📦 AI 先進封裝/CoWoS</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/AMAT-2026-07-18-6mo.png" alt="AMAT 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/AMAT-2026-07-18-1mo.png" alt="AMAT 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">52.7</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">31.6</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$10.06</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$16.75</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">應用材料為全球最大半導體設備商之一，先進製程與CoWoS封裝設備需求在AI時代爆發性增長，台積電先進封裝擴產直接帶動訂單。股價隨半導體景氣修正後評價誘人，技術服務業務提供穩定現金流。記憶體投資回升也將是下半年催化劑。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/4480_Analyst%20Report_1778266345000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Applied Materials provides semiconductor process equipment for wafer fabrication</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">LRCX</span>
+                <span class="card-name">Lam Research</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$313.30</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.39%</span></span>
+            </div>
+            <div class="card-category">📦 AI 先進封裝/CoWoS</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/LRCX-2026-07-18-6mo.png" alt="LRCX 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/LRCX-2026-07-18-1mo.png" alt="LRCX 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">60.6</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">38.8</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$5.17</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$8.08</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">AMKR</span>
+                <span class="card-name">Amkor</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$62.94</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.13%</span></span>
+            </div>
+            <div class="card-category">📦 AI 先進封裝/CoWoS</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/AMKR-2026-07-18-6mo.png" alt="AMKR 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/AMKR-2026-07-18-1mo.png" alt="AMKR 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">36.2</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">25.7</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$1.74</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$2.45</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Amkor為亞洲最大IC封測廠，受惠於CoWoS先進封裝趨勢，台灣與中國半導體客戶需求穩定。雖記憶體景氣修正短期影響訂單，但AI高效運算晶片封裝需求長線爆發。評價面相對同業低估，技術面反彈動能凝聚中。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/6072_Quantitative%20Report_1784073600000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— AMKOR has an Investment Rating of HOLD with target price $74</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">ASX</span>
+                <span class="card-name">ASE Tech</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$38.41</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.78%</span></span>
+            </div>
+            <div class="card-category">📦 AI 先進封裝/CoWoS</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/ASX-2026-07-18-6mo.png" alt="ASX 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/ASX-2026-07-18-1mo.png" alt="ASX 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">62.0</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">19.3</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$0.62</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$1.99</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">💾 AI 儲存/記憶體 <span class="category-count">(5)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">MU</span>
+                <span class="card-name">Micron</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$848.95</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.50%</span></span>
+            </div>
+            <div class="card-category">💾 AI 儲存/記憶體</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/MU-2026-07-18-6mo.png" alt="MU 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/MU-2026-07-18-1mo.png" alt="MU 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">19.3</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">5.6</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$44.06</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$150.77</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">美光為美國唯一記憶體IDM廠，HBM需求在AI伺服器中爆發性增長，技術領先三星與SK海力士，近期財測大幅優於預期顯示供需結構好轉。記憶體景氣循環已在底部，股價超跌提供難得進場機會。大客戶NVIDIA與AMD採購量持續放大。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47427_Market%20Summary_1782385291000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Micron reported results that absolutely blew away expectations, sending shares higher by 15% in aftermarket</span></li>
+    <li><a href="https://finance.yahoo.com/research/reports/3614_Analyst%20Report_1782386191000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Micron is the largest U.S. memory company and leading global supplier of DRAM, NOR, and NAND</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">WDC</span>
+                <span class="card-name">Western Digital</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$477.22</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+2.23%</span></span>
+            </div>
+            <div class="card-category">💾 AI 儲存/記憶體</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/WDC-2026-07-18-6mo.png" alt="WDC 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/WDC-2026-07-18-1mo.png" alt="WDC 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">27.9</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">25.7</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$17.08</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$18.55</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Western Digital分割NAND業務後重返純HDD定位，AI資料中心對大容量HDD需求殷切，應該是利多但股價表現落後太多。HDD在冷資料儲存性價比無可取代，雲端廠商訂單穩定。股價已跌破多家機構目標價，技術面超跌明顯，修復反彈空間大。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/3516_Analyst%20Report_1777893329000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Western Digital returned to pure-play HDD manufacturer after NAND spin-off in February 2025</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">STX</span>
+                <span class="card-name">Seagate</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$787.66</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+5.66%</span></span>
+            </div>
+            <div class="card-category">💾 AI 儲存/記憶體</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/STX-2026-07-18-6mo.png" alt="STX 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/STX-2026-07-18-1mo.png" alt="STX 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">70.9</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">27.7</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$11.11</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$28.48</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">NTAP</span>
+                <span class="card-name">NetApp</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$163.88</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+2.62%</span></span>
+            </div>
+            <div class="card-category">💾 AI 儲存/記憶體</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/NTAP-2026-07-18-6mo.png" alt="NTAP 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/NTAP-2026-07-18-1mo.png" alt="NTAP 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">25.1</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">16.7</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$6.52</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$9.84</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">P</span>
+                <span class="card-name">Everpure</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$69.38</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.48%</span></span>
+            </div>
+            <div class="card-category">💾 AI 儲存/記憶體</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/P-2026-07-18-6mo.png" alt="P 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/P-2026-07-18-1mo.png" alt="P 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">103.6</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">23.1</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$0.67</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$3.01</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">🧊 AI 散熱/液冷 <span class="category-count">(2)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">VRT</span>
+                <span class="card-name">Vertiv</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$289.56</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-1.55%</span></span>
+            </div>
+            <div class="card-category">🧊 AI 散熱/液冷</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/VRT-2026-07-18-6mo.png" alt="VRT 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/VRT-2026-07-18-1mo.png" alt="VRT 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">74.1</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">32.6</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$3.91</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$8.87</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Vertiv為全球資料中心關鍵電力與散熱設備龍頭，AI伺服器功耗倍增帶動UPS與液冷系統需求爆發，與各大雲端廠商關係穩固。 Quantitative Report給予BUY評等與$361目標價，基本面異常強勁。基礎設施廠商在AI主題中常被忽略，評價仍落後軟體同業，修復空間大。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/6781_Quantitative%20Report_1784073600000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Vertiv has Investment Rating of BUY with target price $361</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">SPXC</span>
+                <span class="card-name">SPXC</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$211.73</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-1.96%</span></span>
+            </div>
+            <div class="card-category">🧊 AI 散熱/液冷</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/SPXC-2026-07-18-6mo.png" alt="SPXC 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/SPXC-2026-07-18-1mo.png" alt="SPXC 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">41.4</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">23.3</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$5.12</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$9.09</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">SPXC為工業泵與壓縮設備廠，AI資料中心散熱需求與液冷技術發展長期正面，但散熱市場領導者仍是艾默生與Nvent。股價在基礎建設類股中落後明顯，近期財報未能超預期，缺乏催化劑。持有風險有限但報酬空間相對有限。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">⚡ AI 電力/能源 <span class="category-count">(9)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">VST</span>
+                <span class="card-name">Vistra</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$155.44</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.89%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/VST-2026-07-18-6mo.png" alt="VST 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/VST-2026-07-18-1mo.png" alt="VST 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">25.5</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">14.4</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$6.09</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$10.81</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Vistra為美國電力公用事業與發電廠商，天然氣與潔淨能源發電資產齊備，受惠於能源價格上漲與資料中心電力需求爆發。能源股在通膨環境與地緣風險中具備防禦特性。股價已自高點回調，評價已見合理，修息率吸引人。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/6157_Quantitative%20Report_1784073600000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Vistra has an Investment Rating of HOLD with target price $151</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">CEG</span>
+                <span class="card-name">Constellation</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$252.39</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+0.25%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/CEG-2026-07-18-6mo.png" alt="CEG 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/CEG-2026-07-18-1mo.png" alt="CEG 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">21.9</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">18.6</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$11.51</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$13.58</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Constellation Energy為全美最大碳中和電力供應商，核電廠供電穩定且低碳，受惠於AI資料中心對清潔能源的渴求。與微軟等科技巨頭簽署長期購電協議，營收可預測性極高。地緣風險導致能源價格波动，但核電不受天然氣價格影響，具備相對優勢。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/6301_Analyst%20Report_1778608708000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Constellation Energy is the nation's largest producer of carbon-free energy serving over 15 million homes</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">ETN</span>
+                <span class="card-name">Eaton</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$399.99</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+0.94%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/ETN-2026-07-18-6mo.png" alt="ETN 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/ETN-2026-07-18-1mo.png" alt="ETN 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">38.8</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">25.4</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$10.32</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$15.78</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">NRG</span>
+                <span class="card-name">NRG Energy</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$129.11</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.74%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/NRG-2026-07-18-6mo.png" alt="NRG 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/NRG-2026-07-18-1mo.png" alt="NRG 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">145.1</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">11.2</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$0.89</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$11.49</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">NEE</span>
+                <span class="card-name">NextEra</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$88.80</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.62%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/NEE-2026-07-18-6mo.png" alt="NEE 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/NEE-2026-07-18-1mo.png" alt="NEE 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">22.7</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">20.2</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$3.92</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$4.40</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">NextEra Energy為全球最大風力與太陽能發電開發商，FPL公用事業提供穩定現金流支撐，整體業務結構以潔淨能源為主。資料中心對綠色能源需求增加長期利好。利率環境壓抑公用事業評價，但營運現金流穩定且持續成長，防御性質明顯。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/2983_Analyst%20Report_1777054562000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— NextEra Energy has over 40 GW of total generating capacity, about one-third from wind and solar</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">AAON</span>
+                <span class="card-name">AAON</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$111.42</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-1.57%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/AAON-2026-07-18-6mo.png" alt="AAON 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/AAON-2026-07-18-1mo.png" alt="AAON 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">80.2</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">32.6</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$1.39</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$3.42</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">GEV</span>
+                <span class="card-name">GEV</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$1,057.84</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+2.09%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/GEV-2026-07-18-6mo.png" alt="GEV 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/GEV-2026-07-18-1mo.png" alt="GEV 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">30.3</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">43.0</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$34.91</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$24.61</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">PNRG</span>
+                <span class="card-name">PNRG</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$186.51</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+0.10%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/PNRG-2026-07-18-6mo.png" alt="PNRG 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/PNRG-2026-07-18-1mo.png" alt="PNRG 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">20.9</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">32.0</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$8.92</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$5.82</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">TLN</span>
+                <span class="card-name">TLN</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$372.37</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.11%</span></span>
+            </div>
+            <div class="card-category">⚡ AI 電力/能源</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/TLN-2026-07-18-6mo.png" alt="TLN 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/TLN-2026-07-18-1mo.png" alt="TLN 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">—</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">12.4</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$-0.52</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$30.04</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">📡 AI 網路/光纖 <span class="category-count">(6)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">ANET</span>
+                <span class="card-name">Arista</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$168.61</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+0.03%</span></span>
+            </div>
+            <div class="card-category">📡 AI 網路/光纖</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/ANET-2026-07-18-6mo.png" alt="ANET 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/ANET-2026-07-18-1mo.png" alt="ANET 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">57.7</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">37.7</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$2.92</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$4.47</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Arista Networks為雲端網路交換器龍頭，亞馬遜與Meta等大客戶持續擴建資料中心，直接帶動交換器升級需求。Arista的800G交換器與AI工作負載優化網路解決方案處於領先地位，軟體訂閱服務營收占比提升改善毛利結構。技術面已收復多數跌幅，評價重回成長軌道。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/3688_Analyst%20Report_1778091857000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Arista Networks is a leading supplier of cloud networking solutions for internet companies and data centers</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">CSCO</span>
+                <span class="card-name">Cisco</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$111.94</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+2.08%</span></span>
+            </div>
+            <div class="card-category">📡 AI 網路/光纖</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/CSCO-2026-07-18-6mo.png" alt="CSCO 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/CSCO-2026-07-18-1mo.png" alt="CSCO 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">36.5</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">23.4</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$3.07</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$4.79</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">GLW</span>
+                <span class="card-name">Corning</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$154.61</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.39%</span></span>
+            </div>
+            <div class="card-category">📡 AI 網路/光纖</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/GLW-2026-07-18-6mo.png" alt="GLW 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/GLW-2026-07-18-1mo.png" alt="GLW 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">76.2</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">36.0</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$2.03</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$4.29</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Corning為光纖與顯示玻璃供應商，AI資料中心光纖需求長期趨勢明確，但短期內電信運營商庫存過高拖累營收。股價大幅落後科技股，本益比處於歷史低檔區。智慧型手機用玻璃需求溫和復甦，汽車市場同樣貢獻穩定營收。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47162_Thematic%20Portfolio_1779968001000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Corning is a specialty glass manufacturer for displays, optical fiber, and life sciences applications</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">CIEN</span>
+                <span class="card-name">Ciena</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$374.41</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-3.70%</span></span>
+            </div>
+            <div class="card-category">📡 AI 網路/光纖</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/CIEN-2026-07-18-6mo.png" alt="CIEN 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/CIEN-2026-07-18-1mo.png" alt="CIEN 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">130.0</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">38.8</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$2.88</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$9.64</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Ciena為光纖傳輸設備領導廠，電信與資料中心互連需求長期成長，但庫存調整循環仍在進行中。股價從高點大幅回落，評價已反映悲觀預期。中國電信資本支出回升與美國光纖基礎建設投資将是復甦催化劑。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/2838_Analyst%20Report_1780657761000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Ciena participates in optical transport and switching, converged optical Ethernet solutions, carrier Ethernet</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">NET</span>
+                <span class="card-name">Cloudflare</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$277.66</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.91%</span></span>
+            </div>
+            <div class="card-category">📡 AI 網路/光纖</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/NET-2026-07-18-6mo.png" alt="NET 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/NET-2026-07-18-1mo.png" alt="NET 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">—</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">175.9</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$-0.25</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$1.58</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Cloudflare為邊緣雲端安全與效能平台領導廠，AI時代流量爆炸性增長帶動CDN與安全服務需求，Workers AI功能將AI推論能力部署到全球邊緣節點。與傳統雲端供應商差異化明顯，開發者生態系持續擴大。機構投資人加碼中，技術面已完成底部形態，爆發力醞釀中。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47565_Portfolio%20Ideas_1783597659000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Cloudflare added to Argus Focus List, enabling customers to integrate data for AI workloads</span></li>
+    <li><a href="https://finance.yahoo.com/research/reports/5996_Analyst%20Report_1778756529000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Cloudflare provides cloud-based network services protecting internet apps and running them faster</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">LUMN</span>
+                <span class="card-name">LUMN</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$6.28</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.48%</span></span>
+            </div>
+            <div class="card-category">📡 AI 網路/光纖</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/LUMN-2026-07-18-6mo.png" alt="LUMN 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/LUMN-2026-07-18-1mo.png" alt="LUMN 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">—</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">-21.6</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$-1.74</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$-0.29</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">🖥️ AI 伺服器/雲端 <span class="category-count">(3)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">SMCI</span>
+                <span class="card-name">Super Micro</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$24.18</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.03%</span></span>
+            </div>
+            <div class="card-category">🖥️ AI 伺服器/雲端</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/SMCI-2026-07-18-6mo.png" alt="SMCI 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/SMCI-2026-07-18-1mo.png" alt="SMCI 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">13.0</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">7.7</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$1.86</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$3.12</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Super Micro股價因會計爭議與審計問題重挫，短期信心難以恢復，基本面已有疑慮。雖為AI伺服器供應商且NVIDIA認證配合，但公司治理風險掩蓋了產業利多。建議觀望為主，待審計問題解決與股價站穩後再評估進場時機。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/4480_Analyst%20Report_1778266345000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Super Micro develops modular server and storage solutions for AI and cloud workloads worldwide</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">DELL</span>
+                <span class="card-name">Dell</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$396.34</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.27%</span></span>
+            </div>
+            <div class="card-category">🖥️ AI 伺服器/雲端</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/DELL-2026-07-18-6mo.png" alt="DELL 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/DELL-2026-07-18-1mo.png" alt="DELL 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">31.6</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">18.4</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$12.56</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$21.53</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">戴爾為AI伺服器與傳統PC整合方案供應商，PowerEdge AI伺服器需求受惠於企業AI基礎設施建設，但PC市場景氣仍處低緩。與NVIDIA的策略合作關係支撐AI伺服器訂單能見度。ISG業務營收成長率快速，但整體毛利率仍受零件成本波動影響。技術面築底中，評價相對同業偏低。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47521_Stock%20Picks_1783337985000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Markets soared in first half 2026 with S&P 500 up 9%, AI Broadens Out theme driving tech leadership</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">HPQ</span>
+                <span class="card-name">HPQ</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$24.84</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+2.90%</span></span>
+            </div>
+            <div class="card-category">🖥️ AI 伺服器/雲端</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/HPQ-2026-07-18-6mo.png" alt="HPQ 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/HPQ-2026-07-18-1mo.png" alt="HPQ 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">8.9</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">8.3</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$2.78</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$3.01</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">🔐 AI 資安/雲端 <span class="category-count">(5)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">CRWD</span>
+                <span class="card-name">CrowdStrike</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$203.08</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.33%</span></span>
+            </div>
+            <div class="card-category">🔐 AI 資安/雲端</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/CRWD-2026-07-18-6mo.png" alt="CRWD 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/CRWD-2026-07-18-1mo.png" alt="CRWD 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">—</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">130.0</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$-0.02</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$1.56</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">CrowdStrike為AI時代網路安全領袖，終端保護平台滲透率持續提升，AI助理Charlotte助手提升威脅偵測效率並降低誤報率。伊朗戰爭與網路攻擊風險加劇，企業資安預算持續上升。公司已連續多季財測超標，訂閱營收成長動能強勁，毛利率維持高檔。技術面已率先反應多頭走勢。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47486_Technical%20Analysis_1782904853000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Stock market ended June in recovery mode, with Q2 delivering strong quarter despite mixed returns</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">PANW</span>
+                <span class="card-name">Palo Alto</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$358.68</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.32%</span></span>
+            </div>
+            <div class="card-category">🔐 AI 資安/雲端</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/PANW-2026-07-18-6mo.png" alt="PANW 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/PANW-2026-07-18-1mo.png" alt="PANW 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">311.9</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">87.0</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$1.15</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$4.12</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Palo Alto Networks為企業資安平台龍頭，資安營運平台化策略成效顯著，AI整合提升競爭門檻。Iran戰爭下地緣緊張加劇，企業資安威脅升高同時提升預算意願。平台式資安方案簡化管理複雜度，客戶替換競爭對手的轉換成本高，忠誠度佳。營收與訂單成長率維持高雙位數。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47615_Technical%20Analysis_1784114110000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Tech heavy Nasdaq and QQQ have rapidly rolled over into pullback territory; healthcare sector under pressure</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">OKTA</span>
+                <span class="card-name">OKTA</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$149.35</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.09%</span></span>
+            </div>
+            <div class="card-category">🔐 AI 資安/雲端</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/OKTA-2026-07-18-6mo.png" alt="OKTA 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/OKTA-2026-07-18-1mo.png" alt="OKTA 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">109.0</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">34.9</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$1.37</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$4.28</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">S</span>
+                <span class="card-name">S</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$19.57</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.31%</span></span>
+            </div>
+            <div class="card-category">🔐 AI 資安/雲端</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/S-2026-07-18-6mo.png" alt="S 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/S-2026-07-18-1mo.png" alt="S 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">—</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">39.7</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$-0.97</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$0.49</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">ZS</span>
+                <span class="card-name">ZS</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$149.94</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+2.40%</span></span>
+            </div>
+            <div class="card-category">🔐 AI 資安/雲端</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/ZS-2026-07-18-6mo.png" alt="ZS 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/ZS-2026-07-18-1mo.png" alt="ZS 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">—</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">32.6</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$-0.49</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$4.60</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Zscaler為零信任安全存取服務邊緣（SASE）領導廠，AI時代員工與應用程式分散化加速雲端資安需求。企業傳統VPN正面臨架構性轉型到零信任，Zscaler先發優勢明顯。Intercept X平台整合AI威脅偵測，產品差異化持續擴大。營收維持40%以上成長率，基本面與技術面同步多頭。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/39467_Top/Bottom%20Insider%20Activity_1711017455000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Zscaler provides cloud-based network security services protecting internet applications</span></li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">🤖 AI 軟體/資料分析 <span class="category-count">(3)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">PLTR</span>
+                <span class="card-name">Palantir</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$132.38</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-1.53%</span></span>
+            </div>
+            <div class="card-category">🤖 AI 軟體/資料分析</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/PLTR-2026-07-18-6mo.png" alt="PLTR 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/PLTR-2026-07-18-1mo.png" alt="PLTR 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">148.7</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">63.2</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$0.89</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$2.09</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Palantir為政府與企業AI資料分析平台領導廠，Gotham與Foundry平台在複雜資料融合分析無可取代，政府國防業務成長穩健，商業業務拓展順利。AI作業系統願景逐步實現，企業AI支出加速有利於商業營收佔比提升。技術面已率先反應多頭，股價動能強勁，預期仍有上行空間。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/6302_Analyst%20Report_1778065523000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Palantir develops software that enables government and commercial enterprises to integrate data for decision-making</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">CRM</span>
+                <span class="card-name">CRM</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$170.77</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-1.11%</span></span>
+            </div>
+            <div class="card-category">🤖 AI 軟體/資料分析</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/CRM-2026-07-18-6mo.png" alt="CRM 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/CRM-2026-07-18-1mo.png" alt="CRM 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">20.0</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">11.0</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$8.54</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$15.53</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">SNOW</span>
+                <span class="card-name">SNOW</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$268.90</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.41%</span></span>
+            </div>
+            <div class="card-category">🤖 AI 軟體/資料分析</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/SNOW-2026-07-18-6mo.png" alt="SNOW 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/SNOW-2026-07-18-1mo.png" alt="SNOW 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">—</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">100.1</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$-3.50</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$2.69</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Snowflake為雲端資料倉儲龍頭，協助企業整合異質資料源用於AI與分析應用，資料共享生態系持續擴大。AI應用爆發創造更多企業級資料整合需求，Data Cloud平台黏著性極高。營收成長率在大型軟體公司中領先，Cortex AI功能提升產品差異化。技術面築底完成，突破後上升空間大。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/6355_Analyst%20Report_1780053669000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Snowflake is an AI data cloud company providing cloud-native data warehouse and data sharing platform</span></li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">☁️ AI 雲端平台 <span class="category-count">(5)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">ORCL</span>
+                <span class="card-name">Oracle</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$126.41</span>
+                <span class="card-change"><span style="color:#24e08a;font-weight:700">+1.77%</span></span>
+            </div>
+            <div class="card-category">☁️ AI 雲端平台</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/ORCL-2026-07-18-6mo.png" alt="ORCL 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/ORCL-2026-07-18-1mo.png" alt="ORCL 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">21.3</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">11.6</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$5.93</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$10.92</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">GOOGL</span>
+                <span class="card-name">Alphabet</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$346.77</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.17%</span></span>
+            </div>
+            <div class="card-category">☁️ AI 雲端平台</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/GOOGL-2026-07-18-6mo.png" alt="GOOGL 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/GOOGL-2026-07-18-1mo.png" alt="GOOGL 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">27.0</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">23.7</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$12.83</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$14.64</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Alphabet為AI全方位布局最完整的科技巨頭，Google Search與YouTube領導地位提供穩定現金流，Google Cloud AI服務高速增長，Gemini模型在多模態領域具有領先優勢。廣告營收持續復甦，YouTube Shorts貨幣化改善中。回購計畫支撐每股盈餘，技術面相對落後提供補漲空間。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/3012_Analyst%20Report_1782299265000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Alphabet maintains the largest online index of websites and generates revenue through advertising and cloud</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">MSFT</span>
+                <span class="card-name">Microsoft</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$393.82</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-1.82%</span></span>
+            </div>
+            <div class="card-category">☁️ AI 雲端平台</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/MSFT-2026-07-18-6mo.png" alt="MSFT 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/MSFT-2026-07-18-1mo.png" alt="MSFT 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">23.4</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">20.3</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$16.81</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$19.38</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">微軟為AI時代雲端與企業軟體雙龍頭，Azure AI服務企業採用率急速上升，Copilot產品矩陣覆蓋辦公、生產力與開發者工具。與OpenAI獨家合作確保AI基礎模型領先地位，企業軟體市佔率穩步提升。訂閱制商業模式提供高度可預測現金流，股利成長持續。技術面維持多頭排列，機構持股穩定。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/3212_Analyst%20Report_1783682046000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Microsoft is the world's largest independent software developer with Azure cloud and Office 365 leadership</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">AMZN</span>
+                <span class="card-name">Amazon</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$247.23</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-1.06%</span></span>
+            </div>
+            <div class="card-category">☁️ AI 雲端平台</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/AMZN-2026-07-18-6mo.png" alt="AMZN 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/AMZN-2026-07-18-1mo.png" alt="AMZN 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">29.9</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">24.9</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$8.28</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$9.91</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">亞馬遜AWS為全球最大公有雲，AI工作負載爆發直接驅動雲端需求，Amazon Bedrock提供企業級AI基礎模型服務，Telegraph圖譜與Trainium晶片自研降低AI運算成本。電商業務利潤率持續改善，廣告業務高速成長。AWS與AI結合的想像空間最大，技術面已完全收復跌幅並創新高。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/47259_Stock%20Picks_1780919958000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— AI is helping lift profits at consumer companies on multiple levels, including supply-chain management</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">META</span>
+                <span class="card-name">Meta</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$646.01</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.79%</span></span>
+            </div>
+            <div class="card-category">☁️ AI 雲端平台</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/META-2026-07-18-6mo.png" alt="META 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/META-2026-07-18-1mo.png" alt="META 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">24.2</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">17.8</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$26.74</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$36.33</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">Meta為社群媒體與AI廣告平台雙重龍頭，Facebook與Instagram Reels短影片貨幣化加速，AI推薦引擎提升用戶黏著度與廣告效益。Llama開源模型建立開發者生態系，Meta Quest在空間運算市場搶得先機。廣告定價改善與Reels營收成長將推動毛利率持續擴張，技術面多頭形態完整。</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li><a href="https://finance.yahoo.com/research/reports/3592_Analyst%20Report_1784226582000" target="_blank" rel="noopener">(無標題)</a> <span style="color:#666;font-size:0.85em">— Meta operates the world's largest family of social networking sites and develops AI through Superintelligence Labs</span></li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="category-section">
+        <h2 class="category-title">🏭 AI 基礎建設其他 <span class="category-count">(2)</span></h2>
+        <div class="cards-grid">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">AES</span>
+                <span class="card-name">AES</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$14.77</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-0.20%</span></span>
+            </div>
+            <div class="card-category">🏭 AI 基礎建設其他</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/AES-2026-07-18-6mo.png" alt="AES 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/AES-2026-07-18-1mo.png" alt="AES 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">7.7</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">6.2</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$1.92</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$2.38</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-ticker-block">
+                <span class="card-ticker">ASML</span>
+                <span class="card-name">ASML</span>
+            </div>
+            <div class="card-price-block">
+                <span class="card-price">$1,747.58</span>
+                <span class="card-change"><span style="color:#ef5350;font-weight:700">-2.09%</span></span>
+            </div>
+            <div class="card-category">🏭 AI 基礎建設其他</div>
+        </div>
+
+        <div class="kline-row">
+            <div class="kline-cell">
+                <div class="kline-label">📊 半年日 K</div>
+                <img class="kline-img" src="../png/ASML-2026-07-18-6mo.png" alt="ASML 6 月 K 線" loading="lazy">
+            </div>
+            <div class="kline-cell">
+                <div class="kline-label">📊 一月日 K（22 交易日）</div>
+                <img class="kline-img" src="../png/ASML-2026-07-18-1mo.png" alt="ASML 1 月 K 線" loading="lazy">
+            </div>
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric"><span class="metric-key">P/E (TTM)</span><span class="metric-val">56.8</span></div>
+            <div class="metric"><span class="metric-key">P/E (Fwd)</span><span class="metric-val">30.3</span></div>
+            <div class="metric"><span class="metric-key">EPS (TTM)</span><span class="metric-val">$30.76</span></div>
+            <div class="metric"><span class="metric-key">EPS (Fwd)</span><span class="metric-val">$57.66</span></div>
+        </div>
+
+        <div class="rec-block">
+            <div class="block-title">💡 AI 推薦</div>
+            <div class="rec-text">— 等待下次報告更新 —</div>
+        </div>
+
+        <div class="news-block">
+            <div class="block-title">📰 最新新聞（3 天內）</div>
+            <ul class="news-list">
+    <li style="color:#888">— 無 3 天內新聞 —</li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </section>
+
+<div class="foot">
+    📊 自動產生於 2026-07-18 05:36 UTC<br>
+    資料來源：<a href="https://finance.yahoo.com" target="_blank">Yahoo Finance</a> · 原始碼 <a href="https://github.com/acstep/stock-charts" target="_blank">github.com/acstep/stock-charts</a> · AI 報告來自 <a href="https://acstep.github.io/stock-reports/" target="_blank">stock-reports</a>
+</div>
+</div>
+</body>
+</html>
