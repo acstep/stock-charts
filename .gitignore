@@ -1,21 +1,17 @@
-# 私密認證（保險起見全擋）
+# 排除私密檔案
 .credentials.js
 .env
-.env.*
 *.token
-*password*
-*secret*
-*api_key*
 
-# Puppeteer / Node
+# 允許核心邏輯
+!kline_generator.py
+!build_gallery.py
+!symbols.json
+
+# 排除產出的圖片（通常圖片太大，不建議放 git，除非 MUSE 需要）
+# png/
+# charts/
+
+__pycache__/
 node_modules/
-package.json
-package-lock.json
-*.log
 .DS_Store
-
-# OS
-Thumbs.db
-
-# 執行腳本（不上傳到 repo）
-scripts/
